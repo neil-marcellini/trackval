@@ -2,8 +2,8 @@
 // Callback for Oauth
 $authorization_code = $_GET['code'];
 // post request for access token
-$base_url = 'http://localhost:8888/';
-// $base_url = 'https://damp-castle-92074.herokuapp.com/';
+// $base_url = 'http://localhost:8888/';
+$base_url = 'https://damp-castle-92074.herokuapp.com/';
 $client_id = 'e9ba8a5be607dd037705e53bd02932bc5821e98e5bce344b45beba4135f65d29';
 $client_secret = getenv("client_secret");
 var_dump($client_secret);
