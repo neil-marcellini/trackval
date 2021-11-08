@@ -6,7 +6,6 @@ $authorization_code = $_GET['code'];
 $base_url = 'https://damp-castle-92074.herokuapp.com/';
 $client_id = 'e9ba8a5be607dd037705e53bd02932bc5821e98e5bce344b45beba4135f65d29';
 $client_secret = getenv("client_secret");
-var_dump($client_secret);
 $redirect_uri = $base_url . 'oauth';
 $post_url = "https://app.youneedabudget.com/oauth/token";
 // https://app.youneedabudget.com/oauth/token?client_id=[CLIENT_ID]&client_secret=[CLIENT_SECRET]&redirect_uri=[REDIRECT_URI]&grant_type=authorization_code&code=[AUTHORIZATION_CODE]
