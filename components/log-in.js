@@ -23,10 +23,8 @@ const defineLogin = (html) => {
     constructor() {
       super();
       this.innerHTML = html;
-      this.baseURL = 'https://damp-castle-92074.herokuapp.com/'
-      // this.baseURL = 'http://localhost:8888/'
       this.clientId = 'e9ba8a5be607dd037705e53bd02932bc5821e98e5bce344b45beba4135f65d29';
-      this.redirectURI = this.baseURL + 'oauth'; 
+      this.redirectURI = baseURL
       this.authURL = `https://app.youneedabudget.com/oauth/authorize?client_id=${this.clientId}&redirect_uri=${this.redirectURI}&response_type=code`;
     }
 
