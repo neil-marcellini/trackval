@@ -1,0 +1,50 @@
+.table-container {
+  overflow-y: auto;
+  height: 50vh;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+#transactions-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
+  width: 100%;
+  font-size: 16px;
+}
+
+table th:first-child {
+  border-top-left-radius: 10px;
+}
+
+table th:last-child {
+  border-top-right-radius: 10px;
+}
+
+#transactions-table thead th, #transactions-table thead tr {
+  position: sticky;
+  top: 0;
+}
+
+thead tr {
+  background-color: var(--primary);
+  color: #ffffff;
+  text-align: left;
+}
+
+th {
+  height: 45px;
+  padding: 0.5rem;
+}
+
+tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+  border-bottom: 2px solid var(--primary);
+}

@@ -33,7 +33,8 @@ const defineHomePage = (html) => {
 
     loadTransactions(xhr) {
       const transactionData = JSON.parse(xhr.responseText);
-      const transactions = transactionData.data.transactions;
+      let transactions = transactionData.data.transactions;
+      transactions.reverse();
       const tableFragment = new DocumentFragment();
       for (const transaction of transactions) {
         const tableRow = this.makeTableRow(transaction);
@@ -63,8 +64,13 @@ const defineHomePage = (html) => {
       // add the category
       this.addTableData(tr, transaction.category_name);
 
+      // Add the memo.
+      this.addTableData(tr, transaction.memo)
+
       // add the amount
-      const amountDisplay = this.amountFormatter.format(transaction.amount);
+      const unitsPerDollar = 1000;
+      const dollarAmount = transaction.amount / unitsPerDollar;
+      const amountDisplay = this.amountFormatter.format(dollarAmount);
       this.addTableData(tr, amountDisplay)
       return tr
     }
