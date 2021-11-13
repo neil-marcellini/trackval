@@ -24,10 +24,9 @@ curl_close($ch);
 
 // turn into json 
 $token_response = json_decode($token_response);
-// set the refresh token as a cookie.
-$expire_days = 30;
-$refresh_expires = time() + 60*60*24*$expire_days;
-setcookie("refresh_token", $token_response->refresh_token, $refresh_expires, "/", $base_url, true, true);
+$expire_days = 30;  
+$refresh_expires = time() + (60*60*24*$expire_days);
+setcookie("refresh_token", $token_response->refresh_token, $refresh_expires, "/", "", true, true);
 // remove refresh_token from response
 unset($token_response->refresh_token);
 // send back response

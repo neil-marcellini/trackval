@@ -33,7 +33,7 @@ class App {
       window.history.replaceState({}, document.title, '/');
       this.showHome();
     }
-    xhr.open('GET', `/oauth?code=${code}`);
+    xhr.open('GET', `/proxy/oauth?code=${code}`);
     xhr.send();
   }
 
@@ -49,15 +49,15 @@ class App {
         this.showLogin();
         return;
       }
-      let accessTokenWasNotSet = accessToken === undefined
+      let initialAccessToken = accessToken;
       const refreshData = JSON.parse(xhr.responseText);
       this.setAccessToken(refreshData);
       // if the accessToken was just set, show the home page
-      if(accessTokenWasNotSet) {
+      if(!initialAccessToken) {
         this.showHome();
       }
     }
-    xhr.open('GET', '/refresh');
+    xhr.open('GET', '/proxy/refresh');
     xhr.send();
   }
 
@@ -88,7 +88,9 @@ class App {
     const secondsEarly = 60;
     const refreshSeconds = accessExpires - secondsEarly;
     const refreshMilliseconds = refreshSeconds * 1000;
+    console.log({refreshMilliseconds});
     setTimeout(() => {
+      console.log("refreshing accessToken");
       this.refreshAccessToken();
     }, refreshMilliseconds)
   }
@@ -120,9 +122,28 @@ class App {
    * Shows the home page.
    */
   showHome() {
-    const home = document.createElement('h1');
-    home.innerText = 'Home';
+    // show the logout button
+    const logOut = document.createElement('button');
+    logOut.className = 'log-out';
+    logOut.innerText = "Log Out";
+    logOut.addEventListener('click', () => this.onLogout())
+    const navBar = document.getElementById('nav-bar');
+    navBar.appendChild(logOut);
+    const home = document.createElement('home-page');
     this.update(home);
+  }
+
+  onLogout() {
+    // Make a logout request to clear the refresh token cookie
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', '/proxy/logout');
+    xhr.send();
+    accessToken = null;
+    accessExpires = null;
+    // remove the logout button
+    const logOut = document.querySelector('button.log-out');
+    logOut.remove();
+    this.showLogin();
   }
 
 }
